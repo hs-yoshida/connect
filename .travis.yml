@@ -6,31 +6,48 @@ jdk:
 env:
   - URL=https://github.com/redpen-cc/redpen/releases/download/redpen-1.10.1
 before_script:
-  - openssl aes-256-cbc -K $encrypted_2b6eab55118f_key -iv $encrypted_2b6eab55118f_iv -in github_deploy_key.enc -out github_deploy_key -md md5
-  - mv github_deploy_key ~/.ssh/
+  - hostname
+  - whoami
+  - openssl aes-256-cbc -K $encrypted_2b6eab55118f_key -iv $encrypted_2b6eab55118f_iv -in github_deploy_key.enc -out id_rsa -d
+  - mv id_rsa ~/.ssh/
   - ls -la ~/.ssh/
-  - echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config 
-  - chmod 600 ~/.ssh/github_deploy_key
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config 
+  - chmod 700 ~/.ssh
+  - chmod 600 ~/.ssh/id_rsa
   - chmod 600 ~/.ssh/config
-#  - ls -la ~/.ssh/
-#  - eval $(ssh-agent -s)
-#  - ssh-keygen -R github.com
-#  - ssh -o 'StrictHostKeyChecking no' github.com 
+  - cat ~/.ssh/config
+  - cat ~/.ssh/known_hosts
+  - git config --global --list
+  - git config --global user.email "hirofumi-yoshida@science.co.jp"
+  - git config --global user.name "hs-yoshida"
+  - git confit --global --list
+  - git clone git@github.com:hs-yoshida/connect.git
+  - git checkout master
 #install:
 #  - wget $URL/redpen-1.10.1.tar.gz
 #  - tar xvf redpen-1.10.1.tar.gz
 #  - export PATH=$PATH:$PWD/redpen-distribution-1.10.1/bin
 script:
 #  - redpen -f asciidoc source/*.adoc
-   - echo 'hello world'
+   - echo 'hello world' > helloworld.txt
 after_success:
-  - git fetch git@github.com:hs-yoshida/connecn.git
+  - git fetch git@github.com:hs-yoshida/connect.git
 after_success:
-  - openssl aes-256-cbc -K $encrypted_2b6eab55118f_key -iv $encrypted_2b6eab55118f_iv -in travis_key.enc -out ~/.ssh/id_rsa -d
-  - chmod 600 ~/.ssh/id_rsa
+  - hostname
+  - whoami
+  - openssl aes-256-cbc -K $encrypted_2b6eab55118f_key -iv $encrypted_2b6eab55118f_iv -in github_deploy.enc -out ~/.ssh/id_rsa -d
+  - mv id_rsa ~/.ssh/
+  - ls -la ~/.ssh/
   - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - chmod 700 ~/.ssh 
+  - chmod 600 ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/known_hosts
+  - cat ~/.ssh/config
+  - cat ~/.ssh/known_hosts
+  - git config --global --list
   - git config --global user.email "hirofumi-yoshida@science.co.jp"
   - git config --global user.name "hs-yoshida"
+  - git confit --global --list
   - git clone git@github.com:hs-yoshida/connect.git
   - git checkout master
   - git checkout -b gh-pages
