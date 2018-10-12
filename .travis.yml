@@ -37,7 +37,7 @@ after_success:
 #  - cd master
   - git add --all
   - git commit -m "by Travis CI (JOB $TRAVIS_JOB_NUMBER)"
-  - git push origin master
+#  - git push origin master
   - git push git@github.com:hs-yoshida/connect.git gh-pages --force
 notifications:
   slack: humanscience-ds:bKpIKhcfWAAAugmKF5t7AF4B
