@@ -8,7 +8,7 @@ env:
 before_script:
   - hostname
   - whoami
-  - openssl aes-256-cbc -K $encrypted_2b6eab55118f_key -iv $encrypted_2b6eab55118f_iv -in github_deploy_key.enc -out id_rsa -d
+  - openssl aes-256-cbc -K $encrypted_2b6eab55118f_key -iv $encrypted_2b6eab55118f_iv -in github_deploy_key.enc -out id_rsa -md md5
   - mv id_rsa ~/.ssh/
   - ls -la ~/.ssh/
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config 
@@ -35,7 +35,7 @@ after_success:
 after_success:
   - hostname
   - whoami
-  - openssl aes-256-cbc -K $encrypted_2b6eab55118f_key -iv $encrypted_2b6eab55118f_iv -in github_deploy.enc -out ~/.ssh/id_rsa -d
+  - openssl aes-256-cbc -K $encrypted_2b6eab55118f_key -iv $encrypted_2b6eab55118f_iv -in github_deploy.enc -out ~/.ssh/id_rsa -md md5
   - mv id_rsa ~/.ssh/
   - ls -la ~/.ssh/
   - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
