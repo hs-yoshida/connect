@@ -32,6 +32,8 @@ after_success:
   - git config --global user.email "hirofumi-yoshida@science.co.jp"
   - git config --global user.name "hs-yoshida"
   - git clone git@github.com:hs-yoshida/connect.git
+  - git checkout master
+  - git checkout -b gh-pages
 #  - cd master
   - git add --all
   - git commit -m "by Travis CI (JOB $TRAVIS_JOB_NUMBER)"
