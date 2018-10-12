@@ -8,8 +8,6 @@ env:
 before_script:
   - openssl aes-256-cbc -K $encrypted_2b6eab55118f_key -iv $encrypted_2b6eab55118f_iv -in github_deploy_key.enc -out github_deploy_key -md md5
   - mv github_deploy_key ~/.ssh/
-#  - eval $(ssh-agent -s)
-#  - ssh-keygen -R github.com
   - ls -la ~/.ssh/
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config 
   - chmod 600 ~/.ssh/github_deploy_key
@@ -17,21 +15,7 @@ before_script:
   - ls -la ~/.ssh/
   - eval $(ssh-agent -s)
   - ssh-keygen -R github.com
-  - ssh github.com 
-#  - cat ~/.ssh/config
-#  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-#  - pbcopy < ~/.ssh/github_deploy_key
-#  - cat ~/.ssh/config
-#  - cat ~/.ssh/known_hosts
-#  - git config --global user.email "hirofumi-yoshida@science.co.jp"
-#  - git config --global user.name "hs-yoshida"
-#  - git clone git@github.com:testEnvOrganization/connection.git --recursive --depth=1
-#  - git branch -a
-#  - git checkout origin/develop
-#  - git fetch git@github.com:testEnvOrganization/connection.git
-#  - yes
-#  - git checkout develop
-#  - git branch -a
+  - ssh -o 'StrictHostKeyChecking no' github.com 
 install:
   - wget $URL/redpen-1.10.1.tar.gz
   - tar xvf redpen-1.10.1.tar.gz
