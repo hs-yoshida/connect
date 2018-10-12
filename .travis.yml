@@ -10,6 +10,7 @@ before_script:
   - whoami
   - openssl aes-256-cbc -K $encrypted_2b6eab55118f_key -iv $encrypted_2b6eab55118f_iv -in github_deploy_key.enc -out id_rsa -md md5
   - mv id_rsa ~/.ssh/
+  - eval $(ssh-agent -s)
   - ls -la ~/.ssh/
   - cat ~/.ssh/config
   - cat ~/.ssh/known_hosts
@@ -18,8 +19,11 @@ before_script:
   - chmod 700 ~/.ssh
   - chmod 600 ~/.ssh/id_rsa
   - chmod 600 ~/.ssh/config
+  - ls -la ~/.ssh/
   - cat ~/.ssh/config
   - cat ~/.ssh/known_hosts
+  - ssh-add id_rsa
+  - ssh -o 'StrictHostKeyChecking no' github.com
   - git config --global --list
   - git config --global user.email "hirofumi-yoshida@science.co.jp"
   - git config --global user.name "hs-yoshida"
